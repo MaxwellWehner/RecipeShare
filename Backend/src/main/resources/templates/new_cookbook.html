@@ -9,10 +9,13 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 
-<title>RecipeShare</title>
+
+<title>Add Cookbook</title>
 </head>
+
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -35,18 +38,22 @@
 
 	<br>
 	<br>
-	<div class="container">
-		<h2>Recipe Share</h2>
+        <h2>Create Cookbook</h2>
 
-		<p>
-			Welcome <span sec:authentication="principal.username">User</span>
-		</p>
-	</div>
+        <form action="#" th:action="@{/saveCookbook}" th:object="${cookbook}" method="POST">
+            <input type="text" th:field="*{title}" placeholder="Cookbook Tilte" class="form-control mb-4 col-4">
 
-	<script type="text/javascript"
-		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-	<script type="text/javascript"
-		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+            <input type="text" th:field="*{description}" placeholder="Cookbook Description" class="form-control mb-4 col-4">
 
+            <input type="text" th:field="*{imageUrl}" placeholder="Cookbook Image URL" class="form-control mb-4 col-4">
+
+            <button type="submit" class="btn btn-info col-2"> Create Cookbook</button>
+        </form>
+
+        <hr>
+
+        <a th:href="@{/cookbooks}"> Back to All Cookbooks</a>
+    </div>
 </body>
+
 </html>

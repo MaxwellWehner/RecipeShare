@@ -36,18 +36,29 @@
 	<br>
 	<br>
 	<div class="container my-2">
-		<h1>Cookbooks</h1>
 
-		<div class="row" th:each="cookbook : ${listCookbooks}">
+		<h1>Cookbooks</h1>
+		<a th:href="@{/showNewCookbookForm}"
+			class="btn btn-primary btn-sm mb-3">New Cookbook</a>
+		<div style="height: 10px"></div>
+		<div th:each="cookbook : ${listCookbooks}">
 			<div class="col-sm-6 col-md-4">
 				<div class="thumbnail">
-					<img th:src="${cookbook.imageUrl}" alt="...">
+					<img th:src="${cookbook.imageUrl}"
+						alt="https://www.startpage.com/av/proxy-image?piurl=https%3A%2F%2Fwww.agileconnection.com%2Fsites%2Fdefault%2Ffiles%2Farticle%2F2017%2Fcookbook.jpg&sp=1656078820Tf3bf01ca9660350a5f2fa711aa9539d1c22883a24ccb93ec1c2087df4f4692fc">
 					<div class="caption">
 						<h3 th:text="${cookbook.title}"></h3>
 						<p th:text="${cookbook.description}"></p>
+						<p
+							th:text="By + ' ' + ${cookbook.userId.firstName} + ' ' + ${cookbook.userId.lastName}"></p>
 						<p>
-							<a href="#" class="btn btn-primary" role="button">Button</a> <a
-								href="#" class="btn btn-default" role="button">Button</a>
+							<a href="#" class="btn btn-primary" role="button">View</a> <a
+								th:if="${#authentication.principal.username == cookbook.userId.email}"
+								th:href="@{/showCookbookUpdateForm/{id}(id=${cookbook.id})}"
+								class="btn btn-primary">Edit</a> <a
+								th:if="${#authentication.principal.username == cookbook.userId.email}"
+								th:href="@{/deleteCookbook/{id}(id=${cookbook.id})}"
+								class="btn btn-danger">Delete</a>
 						</p>
 					</div>
 				</div>

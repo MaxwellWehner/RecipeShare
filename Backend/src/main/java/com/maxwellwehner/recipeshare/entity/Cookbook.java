@@ -12,9 +12,10 @@ public class Cookbook {
 
 	private String description;
 
+	@Column(length = 1000)
 	private String imageUrl;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User userId;
 
@@ -27,6 +28,14 @@ public class Cookbook {
 		this.title = title;
 		this.description = description;
 		this.imageUrl = imageURL;
+	}
+	
+	public Cookbook(String title, String description, String imageURL, Long id) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.imageUrl = imageURL;
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -57,10 +66,24 @@ public class Cookbook {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getUserId() {
+		return userId;
+	}
+
+	public void setUserId(User userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
-		return "Cookbook [id=" + id + ", title=" + title + ", description=" + description + ", imageURL=" + imageUrl
-				+ "]";
+		return "Cookbook [id=" + id + ", title=" + title + ", description=" + description + ", imageUrl=" + imageUrl
+				+ ", userId=" + userId + "]";
 	}
+
+	
 
 }
