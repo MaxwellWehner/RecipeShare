@@ -23,7 +23,6 @@ public class User {
 	@OneToMany(mappedBy = "userId")
 	private Collection<Cookbook> cookbooks;
 
-
 	public User() {
 	}
 
@@ -89,10 +88,18 @@ public class User {
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
+	
+	public Collection<Cookbook> getCookbooks() {
+		return cookbooks;
+	}
+
+	public void setCookbooks(Collection<Cookbook> cookbooks) {
+		this.cookbooks = cookbooks;
+	}
 
 	@Override
 	public String toString() {
-		return "User{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\''
-				+ ", email='" + email + '\'' + ", password='" + "*********" + '\'' + ", roles=" + roles + '}';
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + ", roles=" + roles + ", cookbooks=" + cookbooks + "]";
 	}
 }
