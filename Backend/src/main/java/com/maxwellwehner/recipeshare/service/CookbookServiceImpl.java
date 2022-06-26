@@ -29,12 +29,10 @@ public class CookbookServiceImpl implements CookbookService {
 
 	@Override
 	public void saveCookbook(Cookbook cookbook) {
-		// gets the logged in user the makes it a string and parses out the email
-		String email = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString().split("=|,")[1];
+		// gets the logged in user and then gets the email(getName is the email);
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByEmail(email);
 		cookbook.setUserId(user);
-		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-		System.out.println(cookbook);
 		cookbookRepository.save(cookbook);
 	}
 

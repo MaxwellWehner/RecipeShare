@@ -1,6 +1,8 @@
 package com.maxwellwehner.recipeshare.entity;
 
 import javax.persistence.*;
+
+
 import java.util.Collection;
 
 @Entity
