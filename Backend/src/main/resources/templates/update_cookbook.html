@@ -45,7 +45,8 @@
 
 		<form action="#" th:action="@{/saveCookbook}" th:object="${cookbook}"
 			method="POST">
-			<input type="hidden" th:field="*{id}" /> <input type="text"
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{recipes}" /> <input type="text"
 				th:field="*{title}" class="form-control mb-4 col-4"> <input
 				type="text" th:field="*{description}"
 				class="form-control mb-4 col-4"> <input type="text"

@@ -12,6 +12,15 @@
 
 <title>Cookbook</title>
 </head>
+<style>
+@import
+	url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap")
+	;
+
+#main_container {
+	font-family: "Montserrat", sans-serif;
+}
+</style>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -38,9 +47,37 @@
 	</nav>
 	<br>
 	<br>
-	<br>
-	<div class="container my-2">
-		<div th:text="${cookbook}"></div>
+	<div class="container" id="main_container"
+		style="background-color: #e9ecef; margin-top: 3%;">
+		<div id="top_info" style="display: flex;">
+			<img th:src="${cookbook.imageUrl}" width="25%"
+				style="margin-right: 3%;" />
+			<div id="main_info">
+				<h1 th:text="${cookbook.title}"></h1>
+				<h2
+					th:text="'By: ' + ${cookbook.userId.firstName} + ' ' + ${cookbook.userId.lastName}"
+					style="font-size: 20px"></h2>
+				<p th:text="${cookbook.description}" style="font-size: 20px"></p>
+			</div>
+		</div>
+		<h2>Recipes</h2>
+		<div th:each="recipe: ${cookbook.recipes}"
+			style="display: flex; height: 200px; background-color: #c5c5c5; padding: 10px; border-radius: 5px; width: 90%; margin-left: 5%; margin-bottom: 2%;">
+			<img th:src="${recipe.imageUrl}" alt="recipe"
+				style="margin-right: 3%;">
+			<div>
+				<h2 th:text="${recipe.title}"></h2>
+				<p th:text="${recipe.description}" style="font-weight: 500;"></p>
+				<div style="margin-top: 3%;">
+					<a th:href="@{/recipe/{id}(id=${recipe.id})}"
+						class="btn btn-primary" role="button">View</a> 
+						<a
+						th:if="${#authentication.principal.username == cookbook.userId.email}"
+						th:href="@{/removeRecipeFromCookBook/info(recipeId=${recipe.id},cookbookId=${cookbook.id})}"
+						class="btn btn-danger">Remove from Cookbook</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

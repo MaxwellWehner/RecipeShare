@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/main.css}" />
 
 <title>RecipeShare</title>
 </head>
@@ -38,14 +39,29 @@
 
 	<br>
 	<br>
-	<div class="container">
-		<h2>Recipe Share</h2>
-
-		<p>
-			Welcome <span sec:authentication="principal.username">User</span>
-		</p>
+	<div class="container" id="home_container">
+		<h2 style="font-size: 40px">The best place to browse and share
+			recipes and cookbooks</h2>
+		<div style="display: flex; justify-content: space-around;">
+			<div id="cookbookLink"
+				style="width: 35%; cursor: pointer; background-color: #c5c5c5; padding: 10px; border-radius: 8px; padding-top: 0px; margin-bottom: 3%;">
+				<h2>Explore Cookbooks</h2>
+				<img
+					src="https://marketplace.canva.com/EADaoR091Rg/1/0/1024w/canva-black-and-white-minimalist-shape-cookbook-book-cover-eZS9iz66IZ0.jpg"
+					alt="cookbook" width="100%" />
+			</div>
+			<div id="recipeLink"
+				style="width: 35%; cursor: pointer; background-color: #c5c5c5; padding: 10px; border-radius: 8px; padding-top: 0px; margin-bottom: 3%;">
+				<h2>Browse Recipes</h2>
+				<img
+					src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/food-recipe-page-template-design-215885e69d1086fe8748c0fa47115481_screen.jpg?ts=1636992580"
+					alt="recipe" width="100%" />
+			</div>
+		</div>
+		<p></p>
 	</div>
 
+	<script type="text/javascript" th:src="@{/main.js}"></script>
 	<script type="text/javascript"
 		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
 	<script type="text/javascript"

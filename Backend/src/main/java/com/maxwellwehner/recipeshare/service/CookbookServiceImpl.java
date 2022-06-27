@@ -43,6 +43,14 @@ public class CookbookServiceImpl implements CookbookService {
 		cookbook.setRecipes(recipes);
 		cookbookRepository.save(cookbook);
 	}
+	
+	@Override
+	public void removeRecipeFromCookbook(Cookbook cookbook, Recipe recipe) {
+		Collection<Recipe> recipes = cookbook.getRecipes();
+		recipes.remove(recipe);
+		cookbook.setRecipes(recipes);
+		cookbookRepository.save(cookbook);
+	}
 
 	@Override
 	public void deleteCookbookById(long id) {
@@ -61,5 +69,7 @@ public class CookbookServiceImpl implements CookbookService {
 		}
 		return cookbook;
 	}
+
+	
 
 }

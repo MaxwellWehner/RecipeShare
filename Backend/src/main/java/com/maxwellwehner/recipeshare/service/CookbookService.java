@@ -11,4 +11,5 @@ public interface CookbookService {
 	void deleteCookbookById(long id);
 	Cookbook getCookbookById(long id);
 	void setCookbookRecipe(Cookbook cookbook, Recipe recipe);
+	void removeRecipeFromCookbook(Cookbook cookbook, Recipe recipe);
 }

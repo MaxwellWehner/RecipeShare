@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maxwellwehner.recipeshare.entity.Cookbook;
-import com.maxwellwehner.recipeshare.entity.Form;
 import com.maxwellwehner.recipeshare.entity.Recipe;
 import com.maxwellwehner.recipeshare.service.CookbookService;
 import com.maxwellwehner.recipeshare.service.RecipeService;
@@ -28,7 +27,7 @@ public class CookbookController {
 		model.addAttribute("listCookbooks", cookbookService.getAllCookbooks());
 		return "cookbooks";
 	}
-	
+
 	@GetMapping("/cookbook/{id}")
 	public String viewCookbook(@PathVariable(value = "id") long id, Model model) {
 		model.addAttribute("cookbook", cookbookService.getCookbookById(id));
@@ -44,6 +43,8 @@ public class CookbookController {
 
 	@PostMapping("/saveCookbook")
 	public String saveCookbook(@ModelAttribute("cookbook") Cookbook cookbook) {
+		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+		System.out.println(cookbook);
 		cookbookService.saveCookbook(cookbook);
 		return "redirect:/cookbooks";
 	}
@@ -61,13 +62,21 @@ public class CookbookController {
 		model.addAttribute("cookbook", cookbook);
 		return "update_cookbook";
 	}
-	
+
 	@PostMapping("/addToCookbook/{id}")
 	public String addRecipeToCookbook(@RequestParam Long cookbookId, @PathVariable(value = "id") long recipeId) {
 		Cookbook cookbook = cookbookService.getCookbookById(cookbookId);
 		Recipe recipe = recipeService.getRecipeById(recipeId);
 		cookbookService.setCookbookRecipe(cookbook, recipe);
 		return "redirect:/recipe/" + recipeId + "?success";
+	}
+
+	@GetMapping("/removeRecipeFromCookBook/info")
+	public String removeRecipeFromCookBook(@RequestParam Long cookbookId, @RequestParam Long recipeId) {
+		Cookbook cookbook = cookbookService.getCookbookById(cookbookId);
+		Recipe recipe = recipeService.getRecipeById(recipeId);
+		cookbookService.removeRecipeFromCookbook(cookbook, recipe);
+		return "redirect:/cookbook/" + cookbookId;
 	}
 
 }
