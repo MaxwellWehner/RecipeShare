@@ -7,12 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.maxwellwehner.recipeshare.entity.Cookbook;
+import com.maxwellwehner.recipeshare.entity.Form;
+import com.maxwellwehner.recipeshare.entity.Recipe;
 import com.maxwellwehner.recipeshare.service.CookbookService;
+import com.maxwellwehner.recipeshare.service.RecipeService;
 
 @Controller
 public class CookbookController {
+	@Autowired
+	private RecipeService recipeService;
 
 	@Autowired
 	private CookbookService cookbookService;
@@ -21,6 +27,12 @@ public class CookbookController {
 	public String viewCookbooks(Model model) {
 		model.addAttribute("listCookbooks", cookbookService.getAllCookbooks());
 		return "cookbooks";
+	}
+	
+	@GetMapping("/cookbook/{id}")
+	public String viewCookbook(@PathVariable(value = "id") long id, Model model) {
+		model.addAttribute("cookbook", cookbookService.getCookbookById(id));
+		return "cookbook";
 	}
 
 	@GetMapping("/showNewCookbookForm")
@@ -48,6 +60,14 @@ public class CookbookController {
 
 		model.addAttribute("cookbook", cookbook);
 		return "update_cookbook";
+	}
+	
+	@PostMapping("/addToCookbook/{id}")
+	public String addRecipeToCookbook(@RequestParam Long cookbookId, @PathVariable(value = "id") long recipeId) {
+		Cookbook cookbook = cookbookService.getCookbookById(cookbookId);
+		Recipe recipe = recipeService.getRecipeById(recipeId);
+		cookbookService.setCookbookRecipe(cookbook, recipe);
+		return "redirect:/recipe/" + recipeId + "?success";
 	}
 
 }

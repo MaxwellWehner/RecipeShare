@@ -1,6 +1,11 @@
 package com.maxwellwehner.recipeshare.entity;
 
+import java.util.Collection;
+
 import javax.persistence.*;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class Cookbook {
@@ -18,6 +23,11 @@ public class Cookbook {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="user_id")
 	private User userId;
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinTable(name = "recipes_cookbooks", joinColumns = @JoinColumn(name = "cookbook_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"))
+	private Collection<Recipe> recipes;
 
 	public Cookbook() {
 
@@ -77,13 +87,18 @@ public class Cookbook {
 	public void setUserId(User userId) {
 		this.userId = userId;
 	}
+	
+	public Collection<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(Collection<Recipe> recipes) {
+		this.recipes = recipes;
+	}
 
 	@Override
 	public String toString() {
 		return "Cookbook [id=" + id + ", title=" + title + ", description=" + description + ", imageUrl=" + imageUrl
-				+ ", userId=" + userId + "]";
+				+ ", userId=" + userId + ", recipes=" + recipes + "]";
 	}
-
-	
-
 }

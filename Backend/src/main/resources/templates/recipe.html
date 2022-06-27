@@ -10,7 +10,7 @@
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 
 
-<title>Recipes</title>
+<title>Recipe</title>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -38,35 +38,24 @@
 	</nav>
 	<br>
 	<br>
+	<br>
+	
 	<div class="container my-2">
-
-		<h1>Recipes</h1>
-		<a th:href="@{/showNewRecipeForm}" class="btn btn-primary btn-sm mb-3">New
-			Recipe</a>
-		<div style="height: 10px"></div>
-		<div th:each="recipe : ${listRecipes}">
-			<div class="col-sm-6 col-md-4">
-				<div class="thumbnail">
-					<img th:src="${recipe.imageUrl}"
-						alt="https://i.pinimg.com/originals/a5/1d/40/a51d40b47e2b5e8eaa447b9171cfadd1.jpg">
-					<div class="caption">
-						<h3 th:text="${recipe.title}"></h3>
-						<p th:text="${recipe.description}"></p>
-						<p
-							th:text="By + ' ' + ${recipe.userId.firstName} + ' ' + ${recipe.userId.lastName}"></p>
-						<p>
-							<a th:href="@{/recipe/{id}(id=${recipe.id})}" class="btn btn-primary" role="button">View</a> <a
-								th:if="${#authentication.principal.username == recipe.userId.email}"
-								th:href="@{/showRecipeUpdateForm/{id}(id=${recipe.id})}"
-								class="btn btn-primary">Edit</a> <a
-								th:if="${#authentication.principal.username == recipe.userId.email}"
-								th:href="@{/deleteRecipe/{id}(id=${recipe.id})}"
-								class="btn btn-danger">Delete</a>
-						</p>
+	<div th:if="${param.success}">
+						<div class="alert alert-info">Recipe added to cookbook successfully</div>
 					</div>
-				</div>
-			</div>
-		</div>
+		<a th:if="${param.add == null}" th:href="@{?add}"
+			class="btn btn-primary">Add to Cookbook</a> <a th:if="${param.add}"
+			th:href="@{/recipe/{id}(id=${recipe.id})}" class="btn btn-primary">Cancel</a>
+		<form th:if="${param.add}" th:action="@{/addToCookbook/{id}(id=${recipe.id})}" method="POST">
+			<select name="cookbookId">
+				<option th:each="cookbook : ${cookbooks}"
+					th:text="${cookbook.title}" th:value="${cookbook.id}"></option>
+			</select>
+			<button type="submit" class="btn btn-info col-2">Add to
+				Cookbook</button>
+		</form>
+		<div th:text="${recipe}"></div>
 	</div>
 </body>
 </html>

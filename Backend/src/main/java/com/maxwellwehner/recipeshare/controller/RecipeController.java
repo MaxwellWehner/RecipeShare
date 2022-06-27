@@ -9,17 +9,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.maxwellwehner.recipeshare.entity.Recipe;
+import com.maxwellwehner.recipeshare.service.CookbookService;
 import com.maxwellwehner.recipeshare.service.RecipeService;
 
 @Controller
 public class RecipeController {
 	@Autowired
 	private RecipeService recipeService;
+	
+	@Autowired
+	private CookbookService cookbookService;
 
 	@GetMapping("/recipes")
 	public String viewRecipes(Model model) {
 		model.addAttribute("listRecipes", recipeService.getAllRecipes());
 		return "recipes";
+	}
+	
+	@GetMapping("/recipe/{id}")
+	public String viewRecipe(@PathVariable(value = "id") long id, Model model) {
+		model.addAttribute("recipe", recipeService.getRecipeById(id));
+		model.addAttribute("cookbooks", cookbookService.getAllCookbooks());
+		return "recipe";
 	}
 
 	@GetMapping("/showNewRecipeForm")

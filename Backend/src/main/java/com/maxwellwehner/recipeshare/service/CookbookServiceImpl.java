@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.maxwellwehner.recipeshare.entity.Cookbook;
+import com.maxwellwehner.recipeshare.entity.Recipe;
 import com.maxwellwehner.recipeshare.entity.User;
 import com.maxwellwehner.recipeshare.repository.CookbookRepository;
 import com.maxwellwehner.recipeshare.repository.UserRepository;
@@ -32,6 +33,14 @@ public class CookbookServiceImpl implements CookbookService {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByEmail(email);
 		cookbook.setUserId(user);
+		cookbookRepository.save(cookbook);
+	}
+	
+	@Override
+	public void setCookbookRecipe(Cookbook cookbook, Recipe recipe) {
+		Collection<Recipe> recipes = cookbook.getRecipes();
+		recipes.add(recipe);
+		cookbook.setRecipes(recipes);
 		cookbookRepository.save(cookbook);
 	}
 
