@@ -12,6 +12,24 @@
 
 <title>Recipe</title>
 </head>
+<style>
+@import
+	url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap")
+	;
+
+#main_container {
+	font-family: "Montserrat", sans-serif;
+	background-color: #e9ecef;
+	border-radius: 8px;
+	padding: 10px;
+	margin-bottom: 3%;
+}
+
+#form_select{
+	width: 60%;
+	margin-bottom: 2%;
+}
+</style>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -39,23 +57,42 @@
 	<br>
 	<br>
 	<br>
-	
-	<div class="container my-2">
-	<div th:if="${param.success}">
-						<div class="alert alert-info">Recipe added to cookbook successfully</div>
+	<div th:if="${param.success}" class="container">
+		<div class="alert alert-info" id="alert">Recipe added to
+			cookbook successfully</div>
+	</div>
+	<div class="container" id="main_container">
+		<div id="top_info" style="display: flex;">
+			<img th:src="${recipe.imageUrl}" width="25%"
+				style="margin-right: 3%;" />
+			<div id="main_info">
+				<h1 th:text="${recipe.title}"></h1>
+				<h2
+					th:text="'By: ' + ${recipe.userId.firstName} + ' ' + ${recipe.userId.lastName}"
+					style="font-size: 20px"></h2>
+				<p th:text="${recipe.description}" style="font-size: 20px"></p>
+				<a th:if="${param.add == null}" th:href="@{?add}"
+					class="btn btn-primary">Add to Cookbook</a>
+				<form th:if="${param.add}"
+					th:action="@{/addToCookbook/{id}(id=${recipe.id})}" method="POST">
+					<label for="cookbookId">Cookbook:</label>
+					<select name="cookbookId" class="form-control" id="form_select">
+						<option th:each="cookbook : ${cookbooks}"
+							th:text="${cookbook.title}" th:value="${cookbook.id}"></option>
+					</select>
+					<div>
+						<button type="submit" class="btn btn-info col-2">Add to
+							Cookbook</button>
+						<a th:if="${param.add}" th:href="@{/recipe/{id}(id=${recipe.id})}"
+							class="btn btn-danger">Cancel</a>
 					</div>
-		<a th:if="${param.add == null}" th:href="@{?add}"
-			class="btn btn-primary">Add to Cookbook</a> <a th:if="${param.add}"
-			th:href="@{/recipe/{id}(id=${recipe.id})}" class="btn btn-primary">Cancel</a>
-		<form th:if="${param.add}" th:action="@{/addToCookbook/{id}(id=${recipe.id})}" method="POST">
-			<select name="cookbookId">
-				<option th:each="cookbook : ${cookbooks}"
-					th:text="${cookbook.title}" th:value="${cookbook.id}"></option>
-			</select>
-			<button type="submit" class="btn btn-info col-2">Add to
-				Cookbook</button>
-		</form>
-		<div th:text="${recipe}"></div>
+				</form>
+			</div>
+		</div>
+		<h2>Ingredients</h2>
+		<p th:text="${recipe.ingredients}"></p>
+		<h2>Instructions</h2>
+		<p th:text="${recipe.instructions}"></p>
 	</div>
 </body>
 </html>

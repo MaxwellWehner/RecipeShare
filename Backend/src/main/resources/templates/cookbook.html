@@ -19,6 +19,9 @@
 
 #main_container {
 	font-family: "Montserrat", sans-serif;
+	border-radius: 8px;
+	margin-bottom: 3%;
+	padding: 10px;
 }
 </style>
 <body>
@@ -62,7 +65,7 @@
 		</div>
 		<h2>Recipes</h2>
 		<div th:each="recipe: ${cookbook.recipes}"
-			style="display: flex; height: 200px; background-color: #c5c5c5; padding: 10px; border-radius: 5px; width: 90%; margin-left: 5%; margin-bottom: 2%;">
+			style="display: flex; height: 200px; background-color: #c5c5c5; padding: 8px; border-radius: 5px; width: 90%; margin-left: 5%; margin-bottom: 2%;">
 			<img th:src="${recipe.imageUrl}" alt="recipe"
 				style="margin-right: 3%;">
 			<div>
@@ -70,8 +73,7 @@
 				<p th:text="${recipe.description}" style="font-weight: 500;"></p>
 				<div style="margin-top: 3%;">
 					<a th:href="@{/recipe/{id}(id=${recipe.id})}"
-						class="btn btn-primary" role="button">View</a> 
-						<a
+						class="btn btn-primary" role="button">View</a> <a
 						th:if="${#authentication.principal.username == cookbook.userId.email}"
 						th:href="@{/removeRecipeFromCookBook/info(recipeId=${recipe.id},cookbookId=${cookbook.id})}"
 						class="btn btn-danger">Remove from Cookbook</a>

@@ -46,7 +46,8 @@
 
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
-						<label for="firstName" class="control-label">First name</label> <input
+						<label for="firstName" class="control-label">First name</label> 
+						<input
 							id="firstName" class="form-control" th:field="*{firstName}" />
 						<p class="error-message"
 							th:each="error: ${#fields.errors('firstName')}"
@@ -62,7 +63,7 @@
 					</div>
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
-						<label for="email" class="control-label">E-mail</label> <input
+						<label for="email" class="control-label">Email</label> <input
 							id="email" class="form-control" th:field="*{email}" />
 						<p class="error-message"
 							th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
@@ -71,7 +72,7 @@
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('confirmEmail')}? 'has-error':''">
 						<label for="confirmEmail" class="control-label">Confirm
-							e-mail</label> <input id="confirmEmail" class="form-control"
+							Email</label> <input id="confirmEmail" class="form-control"
 							th:field="*{confirmEmail}" />
 						<p class="error-message"
 							th:each="error : ${#fields.errors('confirmEmail')}"

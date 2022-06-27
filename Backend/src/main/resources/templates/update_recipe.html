@@ -45,14 +45,32 @@
 
 		<form action="#" th:action="@{/saveRecipe}" th:object="${recipe}"
 			method="POST">
-			<input type="hidden" th:field="*{id}" /> <input type="text"
-				th:field="*{title}" class="form-control mb-4 col-4"> <input
-				type="text" th:field="*{description}"
-				class="form-control mb-4 col-4"> <input type="text"
-				th:field="*{imageUrl}" class="form-control mb-4 col-4"> <input
-				type="text" th:field="*{ingredients}"
-				class="form-control mb-4 col-4"> <input type="text"
-				th:field="*{instructions}" class="form-control mb-4 col-4">
+			<input type="hidden" th:field="*{id}" />
+			<div class="form-group">
+				<label for="title" class="control-label">Title</label> <input
+					id="title" type="text" th:field="*{title}"
+					placeholder="Recipe Tilte" class="form-control mb-4 col-4">
+			</div>
+			<div class="form-group">
+				<label for="description" class="control-label">Description</label>
+				<textarea id="description" th:field="*{description}"
+					placeholder="Recipe Description" class="form-control mb-4 col-4"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="imageUrl" class="control-label">Image URL</label> <input
+					id="imageUrl" type="text" th:field="*{imageUrl}"
+					placeholder="Recipe Image URL" class="form-control mb-4 col-4">
+			</div>
+			<div class="form-group">
+				<label for="ingredients" class="control-label">Ingredients</label>
+				<textarea id="ingredients" th:field="*{ingredients}"
+					placeholder="Recipe Ingredients" class="form-control mb-4 col-4"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="instructions" class="control-label">Instructions</label>
+				<textarea id="instructions" th:field="*{instructions}"
+					placeholder="Recipe Instructions" class="form-control mb-4 col-4"></textarea>
+			</div>
 
 			<button type="submit" class="btn btn-info col-2">Update
 				Recipe</button>
