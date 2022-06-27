@@ -25,9 +25,14 @@
 	margin-bottom: 3%;
 }
 
-#form_select{
+#form_select {
 	width: 60%;
 	margin-bottom: 2%;
+}
+
+hr{
+	background-color: black;
+	height: 1px;
 }
 </style>
 <body>
@@ -71,12 +76,18 @@
 					th:text="'By: ' + ${recipe.userId.firstName} + ' ' + ${recipe.userId.lastName}"
 					style="font-size: 20px"></h2>
 				<p th:text="${recipe.description}" style="font-size: 20px"></p>
-				<a th:if="${param.add == null}" th:href="@{?add}"
-					class="btn btn-primary">Add to Cookbook</a>
+				<hr>
+				<a th:if="${param.add == null and cookbooks.size() != 0}"
+					th:href="@{?add}" class="btn btn-primary">Add to Cookbook</a>
+				<div th:if="${cookbooks.size() == 0}">
+					<h4>You currently have no cookbooks</h4>
+					<a th:href="@{/showNewCookbookForm}" class="btn btn-primary">Create
+						a bookbook</a>
+				</div>
 				<form th:if="${param.add}"
 					th:action="@{/addToCookbook/{id}(id=${recipe.id})}" method="POST">
-					<label for="cookbookId">Cookbook:</label>
-					<select name="cookbookId" class="form-control" id="form_select">
+					<label for="cookbookId">Cookbook:</label> <select name="cookbookId"
+						class="form-control" id="form_select">
 						<option th:each="cookbook : ${cookbooks}"
 							th:text="${cookbook.title}" th:value="${cookbook.id}"></option>
 					</select>

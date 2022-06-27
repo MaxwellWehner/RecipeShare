@@ -70,6 +70,12 @@ public class CookbookServiceImpl implements CookbookService {
 		return cookbook;
 	}
 
+	@Override
+	public Collection<Cookbook> getAllCookbooksForAUser(User user) {
+		// TODO Auto-generated method stub
+		return cookbookRepository.findAllCookbooksForUser(user);
+	}
+
 	
 
 }

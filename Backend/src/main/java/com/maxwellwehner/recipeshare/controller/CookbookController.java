@@ -43,8 +43,6 @@ public class CookbookController {
 
 	@PostMapping("/saveCookbook")
 	public String saveCookbook(@ModelAttribute("cookbook") Cookbook cookbook) {
-		System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-		System.out.println(cookbook);
 		cookbookService.saveCookbook(cookbook);
 		return "redirect:/cookbooks";
 	}

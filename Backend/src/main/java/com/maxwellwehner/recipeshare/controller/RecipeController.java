@@ -1,6 +1,7 @@
 package com.maxwellwehner.recipeshare.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.maxwellwehner.recipeshare.entity.Recipe;
+import com.maxwellwehner.recipeshare.entity.User;
+import com.maxwellwehner.recipeshare.repository.UserRepository;
 import com.maxwellwehner.recipeshare.service.CookbookService;
 import com.maxwellwehner.recipeshare.service.RecipeService;
 
@@ -19,6 +22,9 @@ public class RecipeController {
 	
 	@Autowired
 	private CookbookService cookbookService;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	@GetMapping("/recipes")
 	public String viewRecipes(Model model) {
@@ -28,8 +34,10 @@ public class RecipeController {
 	
 	@GetMapping("/recipe/{id}")
 	public String viewRecipe(@PathVariable(value = "id") long id, Model model) {
+		String email = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userRepository.findByEmail(email);
 		model.addAttribute("recipe", recipeService.getRecipeById(id));
-		model.addAttribute("cookbooks", cookbookService.getAllCookbooks());
+		model.addAttribute("cookbooks", cookbookService.getAllCookbooksForAUser(user));
 		return "recipe";
 	}
 
