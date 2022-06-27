@@ -25,7 +25,7 @@
 				</button>
 				<a class="navbar-brand" href="#" th:href="@{/}">Home Page</a> <a
 					class="navbar-brand" href="#" th:href="@{/cookbooks}">Cookbooks</a>
-					<a
+				<a class="navbar-brand" href="#" th:href="@{/recipes}">Recipes</a> <a
 					th:if="${#strings.equals(#authentication.principal.getAuthorities()[0], 'ROLE_ADMIN')}"
 					class="navbar-brand" href="#" th:href="@{/admin}">Admin</a>
 			</div>
@@ -48,7 +48,7 @@
 			<div class="col-sm-6 col-md-4">
 				<div class="thumbnail">
 					<img th:src="${cookbook.imageUrl}"
-						alt="https://www.startpage.com/av/proxy-image?piurl=https%3A%2F%2Fwww.agileconnection.com%2Fsites%2Fdefault%2Ffiles%2Farticle%2F2017%2Fcookbook.jpg&sp=1656078820Tf3bf01ca9660350a5f2fa711aa9539d1c22883a24ccb93ec1c2087df4f4692fc">
+						alt="https://media.cntraveler.com/photos/5fdcd6ff96eb9dac9141058b/1:1/w_910,h_910,c_limit/CookbooksWeLove-2020-Lede.jpg">
 					<div class="caption">
 						<h3 th:text="${cookbook.title}"></h3>
 						<p th:text="${cookbook.description}"></p>

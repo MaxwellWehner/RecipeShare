@@ -9,7 +9,8 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 
-<title>RecipeShare</title>
+
+<title>Recipes</title>
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -35,21 +36,37 @@
 			</div>
 		</div>
 	</nav>
-
 	<br>
 	<br>
-	<div class="container">
-		<h2>Recipe Share</h2>
+	<div class="container my-2">
 
-		<p>
-			Welcome <span sec:authentication="principal.username">User</span>
-		</p>
+		<h1>Recipes</h1>
+		<a th:href="@{/showNewRecipeForm}" class="btn btn-primary btn-sm mb-3">New
+			Recipe</a>
+		<div style="height: 10px"></div>
+		<div th:each="recipe : ${listRecipes}">
+			<div class="col-sm-6 col-md-4">
+				<div class="thumbnail">
+					<img th:src="${recipe.imageUrl}"
+						alt="https://i.pinimg.com/originals/a5/1d/40/a51d40b47e2b5e8eaa447b9171cfadd1.jpg">
+					<div class="caption">
+						<h3 th:text="${recipe.title}"></h3>
+						<p th:text="${recipe.description}"></p>
+						<p
+							th:text="By + ' ' + ${recipe.userId.firstName} + ' ' + ${recipe.userId.lastName}"></p>
+						<p>
+							<a href="#" class="btn btn-primary" role="button">View</a> <a
+								th:if="${#authentication.principal.username == recipe.userId.email}"
+								th:href="@{/showRecipeUpdateForm/{id}(id=${recipe.id})}"
+								class="btn btn-primary">Edit</a> <a
+								th:if="${#authentication.principal.username == recipe.userId.email}"
+								th:href="@{/deleteRecipe/{id}(id=${recipe.id})}"
+								class="btn btn-danger">Delete</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
-	<script type="text/javascript"
-		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-	<script type="text/javascript"
-		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-
 </body>
 </html>

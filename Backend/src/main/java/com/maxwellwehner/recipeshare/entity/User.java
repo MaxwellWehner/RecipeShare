@@ -2,7 +2,6 @@ package com.maxwellwehner.recipeshare.entity;
 
 import javax.persistence.*;
 
-
 import java.util.Collection;
 
 @Entity
@@ -21,9 +20,12 @@ public class User {
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
-	
+
 	@OneToMany(mappedBy = "userId")
 	private Collection<Cookbook> cookbooks;
+
+	@OneToMany(mappedBy = "userId")
+	private Collection<Recipe> recipes;
 
 	public User() {
 	}
@@ -90,7 +92,7 @@ public class User {
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
-	
+
 	public Collection<Cookbook> getCookbooks() {
 		return cookbooks;
 	}
@@ -99,9 +101,17 @@ public class User {
 		this.cookbooks = cookbooks;
 	}
 
+	public Collection<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(Collection<Recipe> recipes) {
+		this.recipes = recipes;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", password=" + password + ", roles=" + roles  + "]";
+				+ ", password=" + password + ", roles=" + roles + "]";
 	}
 }

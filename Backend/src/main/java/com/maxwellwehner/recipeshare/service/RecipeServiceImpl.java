@@ -7,50 +7,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.maxwellwehner.recipeshare.entity.Cookbook;
+import com.maxwellwehner.recipeshare.entity.Recipe;
 import com.maxwellwehner.recipeshare.entity.User;
-import com.maxwellwehner.recipeshare.repository.CookbookRepository;
+import com.maxwellwehner.recipeshare.repository.RecipeRepository;
 import com.maxwellwehner.recipeshare.repository.UserRepository;
 
 @Service
-public class CookbookServiceImpl implements CookbookService {
-
+public class RecipeServiceImpl implements RecipeService {
 	@Autowired
-	private CookbookRepository cookbookRepository;
+	private RecipeRepository recipeRepository;
 
 	@Autowired
 	private UserRepository userRepository;
 
 	@Override
-	public Collection<Cookbook> getAllCookbooks() {
-		return cookbookRepository.findAll();
+	public Collection<Recipe> getAllRecipes() {
+		return recipeRepository.findAll();
 	}
 
 	@Override
-	public void saveCookbook(Cookbook cookbook) {
+	public void saveRecipe(Recipe recipe) {
 		// gets the logged in user and then gets the email(getName is the email);
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		User user = userRepository.findByEmail(email);
-		cookbook.setUserId(user);
-		cookbookRepository.save(cookbook);
+		recipe.setUserId(user);
+		recipeRepository.save(recipe);
 	}
 
 	@Override
-	public void deleteCookbookById(long id) {
-		cookbookRepository.deleteById(id);
+	public void deleteRecipeById(long id) {
+		recipeRepository.deleteById(id);
 	}
 
 	@Override
-	public Cookbook getCookbookById(long id) {
-		Optional<Cookbook> optional = cookbookRepository.findById(id);
-		Cookbook cookbook = null;
+	public Recipe getRecipeById(long id) {
+		Optional<Recipe> optional = recipeRepository.findById(id);
+		Recipe recipe = null;
 
 		if (optional.isPresent()) {
-			cookbook = optional.get();
+			recipe = optional.get();
 		} else {
-			throw new RuntimeException("Cookbook not found for id ::" + id);
+			throw new RuntimeException("Recipe not found for id ::" + id);
 		}
-		return cookbook;
+		return recipe;
 	}
-
 }

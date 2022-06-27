@@ -10,7 +10,7 @@
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 
 
-<title>Add Cookbook</title>
+<title>Update Recipe</title>
 </head>
 
 <body>
@@ -41,24 +41,26 @@
 		</nav>
 
 		<br> <br>
-		<h2>Create Cookbook</h2>
+		<h2>Update Recipe</h2>
 
-		<form action="#" th:action="@{/saveCookbook}" th:object="${cookbook}"
+		<form action="#" th:action="@{/saveRecipe}" th:object="${recipe}"
 			method="POST">
-			<input type="text" th:field="*{title}" placeholder="Cookbook Tilte"
+			<input type="hidden" th:field="*{id}" /> <input type="text"
+				th:field="*{title}" class="form-control mb-4 col-4"> <input
+				type="text" th:field="*{description}"
 				class="form-control mb-4 col-4"> <input type="text"
-				th:field="*{description}" placeholder="Cookbook Description"
+				th:field="*{imageUrl}" class="form-control mb-4 col-4"> <input
+				type="text" th:field="*{ingredients}"
 				class="form-control mb-4 col-4"> <input type="text"
-				th:field="*{imageUrl}" placeholder="Cookbook Image URL"
-				class="form-control mb-4 col-4">
+				th:field="*{instructions}" class="form-control mb-4 col-4">
 
-			<button type="submit" class="btn btn-info col-2">Create
-				Cookbook</button>
+			<button type="submit" class="btn btn-info col-2">Update
+				Recipe</button>
 		</form>
 
 		<hr>
 
-		<a th:href="@{/cookbooks}"> Back to All Cookbooks</a>
+		<a th:href="@{/recipes}"> Back to All Recipes</a>
 	</div>
 </body>
 
